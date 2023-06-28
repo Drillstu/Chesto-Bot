@@ -7,17 +7,23 @@ import org.jetbrains.annotations.NotNull;
 import static services.RunMoveMemberTask.getExecutorRef;
 import static services.RunMoveMemberTask.getFutureTask;
 
-
 public class CancelMoveMemberTask {
 
     public void receiveCommand(@NotNull MessageReceivedEvent event) {
 
         TextChannel textChannel = event.getChannel().asTextChannel();
 
-        getFutureTask().cancel(false);
-        getExecutorRef().shutdownNow();
+        if (getFutureTask() == null){
 
-        textChannel.sendMessage("Task cancelled!").queue();
+            textChannel.sendMessage("No task scheduled!").queue();
+
+        } else {
+
+            getFutureTask().cancel(false);
+            getExecutorRef().shutdownNow();
+
+            textChannel.sendMessage("Task cancelled!").queue();
+        }
     }
 
 }

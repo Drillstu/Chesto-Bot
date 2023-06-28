@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AddExceptionMember {
-    public static Map<String, String> mapMember = new HashMap<>();
+    public static final Map<String, String> mapMember = new HashMap<>();
 
     public void receiveCommand(@NotNull MessageReceivedEvent event) {
 

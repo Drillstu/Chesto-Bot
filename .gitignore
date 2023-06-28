@@ -1,4 +1,7 @@
 ### IntelliJ IDEA ###
+/token.txt
+/.idea
+/build
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/

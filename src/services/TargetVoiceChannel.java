@@ -35,6 +35,5 @@ public class TargetVoiceChannel {
         } else {
             textChannel.sendMessage("Input a voice channel name!").queue();
         }
-        //}
     }
 }

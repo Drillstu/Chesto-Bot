@@ -11,13 +11,13 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-public class MoveBot {
+public class ChestoBot {
     // TODO: 12/06/2023 create a db for channel and time parameters 
     
     public static final Locale localeBr = new Locale("pt", "BR");
 
     public static JDA jda;
-    public static Map<Long, Character> prefixMap = new HashMap<>();
+    public static final Map<Long, Character> prefixMap = new HashMap<>();
 
     public static void main(String[] args) throws InterruptedException {
 

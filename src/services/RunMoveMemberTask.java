@@ -1,6 +1,6 @@
 package services;
 
-import main.MoveBot;
+import main.ChestoBot;
 import tasks.MoveMember;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
@@ -64,8 +64,8 @@ public class RunMoveMemberTask {
 
         @Override
         public void run() {
-            if ((!getDay(new RunMoveMemberTask().today, MoveBot.localeBr).equals("sábado")) &&
-                    (!getDay(new RunMoveMemberTask().today, MoveBot.localeBr).equals("domingo"))) {
+            if ((!getDay(new RunMoveMemberTask().today, ChestoBot.localeBr).equals("sábado")) &&
+                    (!getDay(new RunMoveMemberTask().today, ChestoBot.localeBr).equals("domingo"))) {
                 new MoveMember().move(RunMoveMemberTask.getGuild());
             }
         }
