@@ -1,4 +1,4 @@
-package main.java.com.bot.commandHandlers;
+package com.bot.commandHandlers;
 
 public enum Commands {
 

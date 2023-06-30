@@ -1,4 +1,4 @@
-package main.java.com.bot.services;
+package com.bot.services;
 
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;

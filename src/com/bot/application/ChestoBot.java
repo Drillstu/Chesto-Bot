@@ -1,7 +1,7 @@
-package main.java.com.bot.application;
+package com.bot.application;
 
-import main.java.com.bot.commandHandlers.MessageListener;
-import main.java.com.bot.utils.TokenFile;
+import com.bot.commandHandlers.MessageListener;
+import com.bot.utils.TokenFile;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Guild;

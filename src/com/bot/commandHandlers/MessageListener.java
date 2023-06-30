@@ -1,7 +1,7 @@
-package main.java.com.bot.commandHandlers;
+package com.bot.commandHandlers;
 
-import main.java.com.bot.events.ReadCommand;
-import main.java.com.bot.services.*;
+import com.bot.events.ReadCommand;
+import com.bot.services.*;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;

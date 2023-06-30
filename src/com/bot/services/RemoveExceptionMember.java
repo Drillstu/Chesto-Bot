@@ -1,10 +1,10 @@
-package main.java.com.bot.services;
+package com.bot.services;
 
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.jetbrains.annotations.NotNull;
 
-import static main.java.com.bot.services.AddExceptionMember.mapMember;
+import static com.bot.services.AddExceptionMember.mapMember;
 
 
 public class RemoveExceptionMember {
