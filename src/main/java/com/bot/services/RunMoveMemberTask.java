@@ -1,7 +1,7 @@
-package com.bot.services;
+package main.java.com.bot.services;
 
-import com.bot.application.ChestoBot;
-import com.bot.tasks.MoveMember;
+import main.java.com.bot.application.ChestoBot;
+import main.java.com.bot.tasks.MoveMember;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;

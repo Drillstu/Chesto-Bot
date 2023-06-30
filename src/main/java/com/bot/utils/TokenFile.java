@@ -1,4 +1,4 @@
-package com.bot.utils;
+package main.java.com.bot.utils;
 
 import java.io.*;
 

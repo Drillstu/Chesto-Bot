@@ -1,12 +1,12 @@
-package com.bot.tasks;
+package main.java.com.bot.tasks;
 
-import com.bot.services.SourceVoiceChannel;
-import com.bot.services.TargetVoiceChannel;
+import main.java.com.bot.services.SourceVoiceChannel;
+import main.java.com.bot.services.TargetVoiceChannel;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
-import static com.bot.services.AddExceptionMember.mapMember;
+import static main.java.com.bot.services.AddExceptionMember.mapMember;
 
 public class MoveMember extends ListenerAdapter {
     public void move(Guild guild){

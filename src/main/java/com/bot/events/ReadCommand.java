@@ -1,6 +1,6 @@
-package com.bot.events;
+package main.java.com.bot.events;
 
-import com.bot.application.ChestoBot;
+import main.java.com.bot.application.ChestoBot;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.jetbrains.annotations.NotNull;
 

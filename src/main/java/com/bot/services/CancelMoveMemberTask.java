@@ -1,11 +1,8 @@
-package com.bot.services;
+package main.java.com.bot.services;
 
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.jetbrains.annotations.NotNull;
-
-import static com.bot.services.RunMoveMemberTask.getExecutorRef;
-import static com.bot.services.RunMoveMemberTask.getFutureTask;
 
 public class CancelMoveMemberTask {
 
@@ -13,14 +10,14 @@ public class CancelMoveMemberTask {
 
         TextChannel textChannel = event.getChannel().asTextChannel();
 
-        if (getFutureTask() == null){
+        if (RunMoveMemberTask.getFutureTask() == null){
 
             textChannel.sendMessage("No task scheduled!").queue();
 
         } else {
 
-            getFutureTask().cancel(false);
-            getExecutorRef().shutdownNow();
+            RunMoveMemberTask.getFutureTask().cancel(false);
+            RunMoveMemberTask.getExecutorRef().shutdownNow();
 
             textChannel.sendMessage("Task cancelled!").queue();
         }
