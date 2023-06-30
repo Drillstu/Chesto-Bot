@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 
+import java.io.IOException;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Locale;
@@ -21,14 +22,20 @@ public class ChestoBot {
 
     public static void main(String[] args) throws InterruptedException {
 
-        TokenFile.readFile();
-        jda = JDABuilder.create(TokenFile.token,
-                EnumSet.allOf(GatewayIntent.class)).build();
+        try {
+            TokenFile.readFile();
+            jda = JDABuilder.create(TokenFile.token,
+                    EnumSet.allOf(GatewayIntent.class)).build();
+
 
         jda.addEventListener(new MessageListener());
 
         for (Guild guild: jda.awaitReady().getGuilds()) {
             prefixMap.put(guild.getIdLong(), '!');
+        }
+
+        } catch (Exception e){
+            e.printStackTrace();
         }
 
     }
