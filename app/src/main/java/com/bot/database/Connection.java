@@ -12,7 +12,7 @@ import java.util.List;
 public class Connection {
     public static List<String> collectionNames = new ArrayList<>();
     public static MongoDatabase database;
-    private static final String uri ="mongodb+srv://chesto:26LHEcGoEI4lqr8U@chestocluster.lzsd1se.mongodb.net/?retryWrites=true&w=majority";
+    private static final String uri ="xxx";
     public static void connect() {
 
         try {
