@@ -2,6 +2,7 @@ package com.bot.commandHandlers;
 
 import com.bot.events.ReadCommand;
 import com.bot.services.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
@@ -27,7 +28,11 @@ public class MessageListener extends ListenerAdapter {
             new RemoveExceptionMember().receiveCommand(event);
         }
         else if (ReadCommand.onMessageReceived(event, Commands.RUN_TASK.getInputCommand())) {
-            new RunMoveMemberTask().receiveCommand(event);
+            try {
+                new RunMoveMemberTask().receiveCommand(event);
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
         }
         else if (ReadCommand.onMessageReceived(event, Commands.CANCEL_TASK.getInputCommand())) {
             new CancelMoveMemberTask().receiveCommand(event);

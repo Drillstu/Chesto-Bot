@@ -32,16 +32,19 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j-impl
     implementation group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.20.0'
-}
 
-testing {
-    suites {
-        // Configure the built-in test suite
-        test {
-            // Use JUnit4 test framework
-            useJUnit('4.13.2')
-        }
-    }
+    // https://mvnrepository.com/artifact/org.mongodb/mongodb-driver-sync
+    implementation 'org.mongodb:mongodb-driver-sync:4.10.1'
+
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.15.2'
+
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.15.2'
+
 }
 
 application {
