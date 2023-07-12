@@ -22,14 +22,17 @@ public class MoveMemberTime {
 
         String[] inputTime = event.getMessage().getContentRaw().split(" ",2);
         String[] timeString = inputTime[1].split(":");
-
-        if (!inputTime[1].matches("^(?:[01]?\\d|2[0-3])(?::[0-5]\\d){1,2}$")) {
-            textChannel.sendMessage("Incorrect time entered! [pattern: HH:mm]").queue();
-        } else {
-            int hour = Integer.parseInt(timeString[0]);
-            int minute = Integer.parseInt(timeString[1]);
-            setTime(hour, minute);
-            textChannel.sendMessage("Time set!").queue();
-        }
+        //if (!ChestoBot.isRunning) {
+            if (!inputTime[1].matches("^(?:[01]?\\d|2[0-3])(?::[0-5]\\d){1,2}$")) {
+                textChannel.sendMessage("Incorrect time entered! [pattern: HH:mm]").queue();
+            } else {
+                int hour = Integer.parseInt(timeString[0]);
+                int minute = Integer.parseInt(timeString[1]);
+                setTime(hour, minute);
+                textChannel.sendMessage("Time set!").queue();
+            }
+        //} else {
+        //    textChannel.sendMessage("Task is running! Please use '!cancel' first!").queue();
+        //}
     }
 }

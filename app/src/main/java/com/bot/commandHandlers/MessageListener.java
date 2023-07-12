@@ -13,32 +13,32 @@ public class MessageListener extends ListenerAdapter {
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
 
         if (ReadCommand.onMessageReceived(event, Commands.ADD_SOURCE.getInputCommand())) {
-            new SourceVoiceChannel().receiveCommand(event);
+            new SourceVoiceService().receiveCommand(event);
         }
         else if (ReadCommand.onMessageReceived(event, Commands.ADD_TARGET.getInputCommand())) {
-            new TargetVoiceChannel().receiveCommand(event);
+            new TargetVoiceService().receiveCommand(event);
         }
         else if (ReadCommand.onMessageReceived(event, Commands.SET_TIME.getInputCommand())) {
             new MoveMemberTime().receiveCommand(event);
         }
         else if (ReadCommand.onMessageReceived(event, Commands.ADD_EXCEPTION.getInputCommand())) {
-            new AddExceptionMember().receiveCommand(event);
+            new AddExceptionService().receiveCommand(event);
         }
         else if (ReadCommand.onMessageReceived(event, Commands.REMOVE_EXCEPTION.getInputCommand())) {
-            new RemoveExceptionMember().receiveCommand(event);
+            new RemoveExceptionService().receiveCommand(event);
         }
         else if (ReadCommand.onMessageReceived(event, Commands.RUN_TASK.getInputCommand())) {
             try {
-                new RunMoveMemberTask().receiveCommand(event);
+                new RunMoveMemberService().receiveCommand(event);
             } catch (JsonProcessingException e) {
                 throw new RuntimeException(e);
             }
         }
         else if (ReadCommand.onMessageReceived(event, Commands.CANCEL_TASK.getInputCommand())) {
-            new CancelMoveMemberTask().receiveCommand(event);
+            new CancelMoveMemberService().receiveCommand(event);
         }
         else if (ReadCommand.onMessageReceived(event, Commands.PING.getInputCommand())) {
-            new Ping().receiveCommand(event);
+            new PingService().receiveCommand(event);
         }
     }
 }

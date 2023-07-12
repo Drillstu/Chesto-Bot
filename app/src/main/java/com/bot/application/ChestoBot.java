@@ -2,7 +2,7 @@ package com.bot.application;
 
 import com.bot.commandHandlers.MessageListener;
 import com.bot.database.Connection;
-import com.bot.utils.TokenFile;
+import com.bot.utils.Files;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Guild;
@@ -21,8 +21,8 @@ public class ChestoBot {
     public static final Map<Long, Character> prefixMap = new HashMap<>();
     public static void main(String[] args) throws InterruptedException {
 
-        TokenFile.readFile();
-        jda = JDABuilder.create(TokenFile.token,
+        Files.readToken();
+        jda = JDABuilder.create(Files.token,
                 EnumSet.allOf(GatewayIntent.class)).build();
 
         jda.addEventListener(new MessageListener());

@@ -1,8 +1,9 @@
 package com.bot.entities;
 
 import java.util.Map;
+import java.util.Objects;
 
-public class ScheduledTask {
+public class ScheduledTaskConfig {
 
     private String name;
     private String serverID;
@@ -12,7 +13,7 @@ public class ScheduledTask {
     private Map<String, String> exceptMember;
     public boolean isRunning = false;
 
-    public ScheduledTask(String name, String sourceName, String targetName, String taskTime, boolean isRunning) {
+    public ScheduledTaskConfig(String name, String sourceName, String targetName, String taskTime, boolean isRunning) {
         this.name = name;
         this.sourceName = sourceName;
         this.targetName = targetName;
@@ -61,5 +62,18 @@ public class ScheduledTask {
 
     public void setExceptMember(Map<String, String> exceptMember) {
         this.exceptMember = exceptMember;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ScheduledTaskConfig that = (ScheduledTaskConfig) o;
+        return Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }
