@@ -25,29 +25,25 @@ public class SourceVoiceService {
         Guild guild = event.getGuild();
 
         String[] inputChannel = event.getMessage().getContentRaw().split(" ",2);
-        //if (!ChestoBot.isRunning) {
-            if (inputChannel.length > 1) {
-                List<VoiceChannel> voiceChannels = guild.getVoiceChannelsByName(inputChannel[1], false);
-                for (VoiceChannel vc : voiceChannels) {
-                    if ((vc != null) && (vc.getName().equals(inputChannel[1]))) {
-                        textChannel.sendMessage(vc.getName() + " has added as source channel!").queue();
-                        sourceID = vc.getIdLong();
-                        sourceName = vc.getName();
+        if (inputChannel.length > 1) {
+            List<VoiceChannel> voiceChannels = guild.getVoiceChannelsByName(inputChannel[1], false);
+            for (VoiceChannel vc : voiceChannels) {
+                if ((vc != null) && (vc.getName().equals(inputChannel[1]))) {
+                    textChannel.sendMessage(vc.getName() + " has added as source channel!").queue();
+                    sourceID = vc.getIdLong();
+                    sourceName = vc.getName();
 
-                        // insert data into map
-                        sourceMap.put(vc.getId(), vc.getName());
+                    // insert data into map
+                    sourceMap.put(vc.getId(), vc.getName());
 
-                        existChannelName = true;
-                    }
+                    existChannelName = true;
                 }
-                if (!existChannelName) {
-                    textChannel.sendMessage(inputChannel[1] + " channel does not exist in the server!").queue();
-                }
-            } else {
-                textChannel.sendMessage("Input a voice channel name!").queue();
             }
-        //} else {
-        //    textChannel.sendMessage("Task is running! Please use '!cancel' first!").queue();
-        //}
+            if (!existChannelName) {
+                textChannel.sendMessage(inputChannel[1] + " channel does not exist in the server!").queue();
+            }
+        } else {
+            textChannel.sendMessage("Input a voice channel name!").queue();
+        }
     }
 }

@@ -76,7 +76,7 @@ public class RunMoveMemberService {
                 if (readDocument != null) {
 
                     // if different, insert updated data into mongo database
-                    CRUD.update(schTaskConfig);
+                    CRUD.update(schTaskConfig, readDocument);
                 }
 
                 // if data not exist, create new data

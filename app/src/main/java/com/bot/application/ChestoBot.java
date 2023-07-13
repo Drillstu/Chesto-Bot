@@ -22,6 +22,7 @@ public class ChestoBot {
     public static void main(String[] args) throws InterruptedException {
 
         Files.readToken();
+
         jda = JDABuilder.create(Files.token,
                 EnumSet.allOf(GatewayIntent.class)).build();
 

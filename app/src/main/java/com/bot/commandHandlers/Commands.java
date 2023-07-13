@@ -9,6 +9,7 @@ public enum Commands {
     REMOVE_EXCEPTION("removeException"),
     RUN_TASK("run"),
     CANCEL_TASK("cancel"),
+    DELETE_TASK("delete"),
     PING("ping");
 
     private final String inputCommand;

@@ -37,6 +37,9 @@ public class MessageListener extends ListenerAdapter {
         else if (ReadCommand.onMessageReceived(event, Commands.CANCEL_TASK.getInputCommand())) {
             new CancelMoveMemberService().receiveCommand(event);
         }
+        else if (ReadCommand.onMessageReceived(event, Commands.DELETE_TASK.getInputCommand())) {
+            new DeleteMoveCronTaskService().receiveCommand(event);
+        }
         else if (ReadCommand.onMessageReceived(event, Commands.PING.getInputCommand())) {
             new PingService().receiveCommand(event);
         }
