@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.Locale;
 
-import static com.bot.services.AddExceptionService.mapExceptionMember;
+import static com.bot.services.ExceptionService.mapExceptionMember;
 
 public class MoveCronTask implements Runnable {
 

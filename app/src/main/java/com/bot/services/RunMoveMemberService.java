@@ -19,7 +19,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import static com.bot.services.AddExceptionService.mapExceptionMember;
+import static com.bot.services.ExceptionService.mapExceptionMember;
 
 public class RunMoveMemberService {
     // TODO: 13/06/2023 more tests should be done with ExecutorService, such as if a task will run repeatedly every day at specific time

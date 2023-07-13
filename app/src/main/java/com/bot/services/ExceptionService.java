@@ -9,10 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AddExceptionService {
+public class ExceptionService {
     public static final Map<String, String> mapExceptionMember = new HashMap<>();
 
-    public void receiveCommand(@NotNull MessageReceivedEvent event) {
+    public void addCommand(@NotNull MessageReceivedEvent event) {
 
         TextChannel textChannel = event.getChannel().asTextChannel();
 
@@ -30,8 +30,7 @@ public class AddExceptionService {
         }
     }
 
-    /*
-    public void receiveCommand(@NotNull MessageReceivedEvent event) {
+    public void removeCommand(@NotNull MessageReceivedEvent event) {
 
         TextChannel textChannel = event.getChannel().asTextChannel();
 
@@ -47,5 +46,4 @@ public class AddExceptionService {
         }
     }
 
-     */
 }

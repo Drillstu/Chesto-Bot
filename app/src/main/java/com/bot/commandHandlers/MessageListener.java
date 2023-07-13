@@ -22,10 +22,10 @@ public class MessageListener extends ListenerAdapter {
             new MoveMemberTime().receiveCommand(event);
         }
         else if (ReadCommand.onMessageReceived(event, Commands.ADD_EXCEPTION.getInputCommand())) {
-            new AddExceptionService().receiveCommand(event);
+            new ExceptionService().addCommand(event);
         }
         else if (ReadCommand.onMessageReceived(event, Commands.REMOVE_EXCEPTION.getInputCommand())) {
-            new RemoveExceptionService().receiveCommand(event);
+            new ExceptionService().removeCommand(event);
         }
         else if (ReadCommand.onMessageReceived(event, Commands.RUN_TASK.getInputCommand())) {
             try {
