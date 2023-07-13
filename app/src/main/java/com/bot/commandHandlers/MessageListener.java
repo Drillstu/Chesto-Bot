@@ -12,7 +12,10 @@ public class MessageListener extends ListenerAdapter {
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
 
-        if (ReadCommand.onMessageReceived(event, Commands.ADD_SOURCE.getInputCommand())) {
+        if (ReadCommand.onMessageReceived(event, Commands.HELP.getInputCommand())) {
+            event.getChannel().asTextChannel().sendMessage(Commands.help(event)).queue();
+        }
+        else if (ReadCommand.onMessageReceived(event, Commands.ADD_SOURCE.getInputCommand())) {
             new SourceVoiceService().receiveCommand(event);
         }
         else if (ReadCommand.onMessageReceived(event, Commands.ADD_TARGET.getInputCommand())) {

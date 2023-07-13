@@ -29,6 +29,8 @@ public class CancelMoveMemberService {
                 //RunMoveMemberTask.getExecutorRef().shutdownNow();
                 //ChestoBot.isRunning = false;
 
+                // test purposes
+                System.out.println();
 
                 textChannel.sendMessage("Task cancelled!").queue();
             }

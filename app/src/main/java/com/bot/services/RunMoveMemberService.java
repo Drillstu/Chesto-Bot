@@ -59,30 +59,29 @@ public class RunMoveMemberService {
 
                 long period = LocalDateTime.now().until(dateTime, ChronoUnit.SECONDS);
 
-                ScheduledTaskConfig schTaskConfig = new ScheduledTaskConfig(inputTaskName[1],
+                ScheduledTaskConfig taskConfig = new ScheduledTaskConfig(inputTaskName[1],
                         SourceVoiceService.getSourceName(), TargetVoiceService.getTargetName(), dateTimeString, true);
-                schTaskConfig.setServerID(guild.getId());
-                schTaskConfig.setExceptMember(mapExceptionMember);
+                taskConfig.setServerID(guild.getId());
+                taskConfig.setExceptMember(mapExceptionMember);
 
                 ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
                 executorRef = executor;
 
-                futureTask = executor.scheduleAtFixedRate(new MoveCronTask(schTaskConfig), period, dayInSeconds, TimeUnit.SECONDS);
+                futureTask = executor.scheduleAtFixedRate(new MoveCronTask(taskConfig), period, dayInSeconds, TimeUnit.SECONDS);
 
                 // recover data from mongo database
-                Document readDocument = CRUD.read(schTaskConfig);
+                Document readDocument = CRUD.read(taskConfig);
 
                 // compare data from database with data from class
                 if (readDocument != null) {
 
                     // if different, insert updated data into mongo database
-                    CRUD.update(schTaskConfig, readDocument);
+                    CRUD.update(taskConfig, readDocument);
                 }
-
                 // if data not exist, create new data
                 else {
 
-                    CRUD.create(schTaskConfig);
+                    CRUD.create(taskConfig);
                 }
 
                 textChannel.sendMessage("Move Member task is running!").queue();
@@ -90,10 +89,4 @@ public class RunMoveMemberService {
             }
         }
     }
-
-
-
-
-
-
 }

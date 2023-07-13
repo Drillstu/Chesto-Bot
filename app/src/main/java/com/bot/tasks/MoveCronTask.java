@@ -28,6 +28,9 @@ public class MoveCronTask implements Runnable {
         if ((!getDay(today, ChestoBot.localeBr).equals("sábado")) &&
                 (!getDay(today, ChestoBot.localeBr).equals("domingo"))) {
             move(RunMoveMemberService.getGuild());
+
+            // test purposes
+            System.out.println(task.getName() + "done at " + task.getTaskTime());
         }
     }
 
