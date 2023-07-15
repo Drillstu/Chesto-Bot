@@ -26,7 +26,7 @@ public class CRUD {
         entry.append("_id", new ObjectId());
 
         //manually creating log time
-        entry.append("LogTime", LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+        entry.append("lastEdited", LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
 
         collection.insertOne(entry);
 
@@ -34,31 +34,43 @@ public class CRUD {
 
     public static Document read(ScheduledTaskConfig taskConfig){
 
-        return collection.find(new Document("TaskName", taskConfig.getName())).first();
+        return collection.find(new Document("taskName", taskConfig.getName())).first();
 
     }
 
     public static Document read(String taskName){
 
-        return collection.find(new Document("TaskName", taskName)).first();
+        return collection.find(new Document("taskName", taskName)).first();
 
     }
-    public static void update(ScheduledTaskConfig taskConfig, Document oldDoc){
+    public static void update(ScheduledTaskConfig taskConfig, Document oldDoc) throws JsonProcessingException {
 
-        Document updatedDoc = new Document("Source", taskConfig.getSourceName());
-        updatedDoc.append("Target", taskConfig.getTargetName());
-        updatedDoc.append("TaskTime", taskConfig.getTaskTime());
-        updatedDoc.append("ExceptMembers", taskConfig.getExceptMember());
-        updatedDoc.append("LogTime", LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+        String jsonDoc = oldDoc.toJson();
+        ObjectMapper mapper = new ObjectMapper();
+        ScheduledTaskConfig newTask = mapper.readValue(jsonDoc, ScheduledTaskConfig.class);
+
+        newTask.setId(null);
+        newTask.setSourceName(taskConfig.getSourceName());
+        newTask.setTargetName(taskConfig.getTargetName());
+        newTask.setTaskTime(taskConfig.getTaskTime());
+        newTask.setExceptMember(taskConfig.getExceptMember());
+
+        ObjectWriter writer = new ObjectMapper().writer().withDefaultPrettyPrinter();
+        String jsonObj = writer.writeValueAsString(newTask);
+        Document updatedDoc = Document.parse(jsonObj);
+
+        //manually creating log time
+        updatedDoc.append("lastEdited", LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
 
         Document replace = new Document("$set", updatedDoc);
+
         collection.updateOne(oldDoc, replace);
 
     }
 
     public static void delete(String taskName){
 
-        Document deletedDoc = new Document ("TaskName", taskName);
+        Document deletedDoc = new Document ("taskName", taskName);
 
         try {
             collection.deleteOne(deletedDoc);

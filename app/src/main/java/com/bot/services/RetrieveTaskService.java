@@ -27,9 +27,9 @@ public class RetrieveTaskService {
 
             if (readDocument != null) {
 
-                String JSON = readDocument.toJson();
+                String json = readDocument.toJson();
                 ObjectMapper mapper = new ObjectMapper();
-                ScheduledTaskConfig retrievedDoc = mapper.readValue(JSON, ScheduledTaskConfig.class);
+                ScheduledTaskConfig retrievedDoc = mapper.readValue(json, ScheduledTaskConfig.class);
 
                 textChannel.sendMessage(TaskInfo.returnInfo(retrievedDoc)).queue();
 

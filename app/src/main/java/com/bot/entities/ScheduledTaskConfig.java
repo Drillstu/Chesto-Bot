@@ -1,5 +1,6 @@
 package com.bot.entities;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Map;
@@ -8,21 +9,19 @@ import java.util.Objects;
 public class ScheduledTaskConfig {
 
     @JsonProperty(value = "_id", access = JsonProperty.Access.READ_ONLY)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Object id;
-    @JsonProperty("TaskName")
+    @JsonProperty("taskName")
     private String name;
-    @JsonProperty("ServerID")
     private String serverID;
-    @JsonProperty("Source")
+    @JsonProperty("source")
     private String sourceName;
-    @JsonProperty("Target")
+    @JsonProperty("target")
     private String targetName;
-    @JsonProperty("TaskTime")
     private String taskTime;
-    @JsonProperty("ExceptMembers")
+    @JsonProperty("exceptMembers")
     private Map<String, String> exceptMember;
-    @JsonProperty("LogTime")
-    private String logTime;
+    private String lastEdited;
     public boolean isRunning = false;
 
     public ScheduledTaskConfig() {}
@@ -34,6 +33,8 @@ public class ScheduledTaskConfig {
         this.isRunning = isRunning;
     }
     public Object getId() { return id; }
+
+    public void setId(Object id) { this.id = id; }
 
     public String getName() { return name; }
 
@@ -79,7 +80,7 @@ public class ScheduledTaskConfig {
         this.exceptMember = exceptMember;
     }
 
-    public String getLogTime() { return logTime; }
+    public String getLastEdited() { return lastEdited; }
 
     @Override
     public boolean equals(Object o) {
