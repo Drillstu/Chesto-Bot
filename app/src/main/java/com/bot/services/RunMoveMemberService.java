@@ -54,7 +54,7 @@ public class RunMoveMemberService {
             } else {
 
                 dateTime = MoveMemberTime.getTime().atDate(LocalDate.now());
-                String dateTimeString = dateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+                String dateTimeString = dateTime.format(DateTimeFormatter.ofPattern("HH:mm"));
 
                 long period = LocalDateTime.now().until(dateTime, ChronoUnit.SECONDS);
 
