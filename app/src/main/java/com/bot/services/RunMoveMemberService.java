@@ -34,7 +34,6 @@ public class RunMoveMemberService {
         return guild;
     }
 
-
     public void receiveCommand(@NotNull MessageReceivedEvent event) throws JsonProcessingException {
 
         TextChannel textChannel = event.getChannel().asTextChannel();

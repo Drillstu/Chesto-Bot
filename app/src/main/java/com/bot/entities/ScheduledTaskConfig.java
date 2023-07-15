@@ -1,18 +1,31 @@
 package com.bot.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Map;
 import java.util.Objects;
 
 public class ScheduledTaskConfig {
 
+    @JsonProperty(value = "_id", access = JsonProperty.Access.READ_ONLY)
+    private Object id;
+    @JsonProperty("TaskName")
     private String name;
+    @JsonProperty("ServerID")
     private String serverID;
+    @JsonProperty("Source")
     private String sourceName;
+    @JsonProperty("Target")
     private String targetName;
+    @JsonProperty("TaskTime")
     private String taskTime;
+    @JsonProperty("ExceptMembers")
     private Map<String, String> exceptMember;
+    @JsonProperty("LogTime")
+    private String logTime;
     public boolean isRunning = false;
 
+    public ScheduledTaskConfig() {}
     public ScheduledTaskConfig(String name, String sourceName, String targetName, String taskTime, boolean isRunning) {
         this.name = name;
         this.sourceName = sourceName;
@@ -20,6 +33,8 @@ public class ScheduledTaskConfig {
         this.taskTime = taskTime;
         this.isRunning = isRunning;
     }
+    public Object getId() { return id; }
+
     public String getName() { return name; }
 
     public void setName(String name) { this.name = name; }
@@ -63,6 +78,8 @@ public class ScheduledTaskConfig {
     public void setExceptMember(Map<String, String> exceptMember) {
         this.exceptMember = exceptMember;
     }
+
+    public String getLogTime() { return logTime; }
 
     @Override
     public boolean equals(Object o) {

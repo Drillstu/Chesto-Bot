@@ -1,25 +1,33 @@
 package com.bot.database;
 
 import com.bot.entities.ScheduledTaskConfig;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.mongodb.MongoException;
 import com.mongodb.client.MongoCollection;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class CRUD {
     static MongoCollection<Document> collection = Connection.database.getCollection("scheduledTasks");
+    public static MongoCollection<Document> getCollection() { return collection;}
 
-    public static void create(ScheduledTaskConfig taskConfig){
+    public static void create(ScheduledTaskConfig taskConfig) throws JsonProcessingException {
 
-        Document entry = new Document("ServerID", taskConfig.getServerID());
-        entry.append("TaskName", taskConfig.getName());
-        entry.append("Source", taskConfig.getSourceName());
-        entry.append("Target", taskConfig.getTargetName());
-        entry.append("TaskTime", taskConfig.getTaskTime());
-        entry.append("ExceptMembers", taskConfig.getExceptMember());
+        ObjectWriter writer = new ObjectMapper().writer().withDefaultPrettyPrinter();
+        String JSON = writer.writeValueAsString(taskConfig);
+        Document entry = Document.parse(JSON);
+
+        // manually generating unique _id
+        entry.append("_id", new ObjectId());
+
+        //manually creating log time
         entry.append("LogTime", LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+
         collection.insertOne(entry);
 
     }

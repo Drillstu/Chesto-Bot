@@ -14,7 +14,6 @@ import java.util.Locale;
 import java.util.Map;
 
 public class ChestoBot {
-    // TODO: 12/06/2023 create a db for channel and time parameters 
 
     public static final Locale localeBr = new Locale("pt", "BR");
     public static JDA jda;
