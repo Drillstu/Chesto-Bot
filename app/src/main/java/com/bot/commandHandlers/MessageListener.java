@@ -16,10 +16,10 @@ public class MessageListener extends ListenerAdapter {
             event.getChannel().asTextChannel().sendMessage(Commands.help(event)).queue();
         }
         else if (ReadCommand.onMessageReceived(event, Commands.ADD_SOURCE.getInputCommand())) {
-            new SourceVoiceService().receiveCommand(event);
+            new VoiceService().receiveSource(event);
         }
         else if (ReadCommand.onMessageReceived(event, Commands.ADD_TARGET.getInputCommand())) {
-            new TargetVoiceService().receiveCommand(event);
+            new VoiceService().receiveTarget(event);
         }
         else if (ReadCommand.onMessageReceived(event, Commands.SET_TIME.getInputCommand())) {
             new MoveMemberTime().receiveCommand(event);

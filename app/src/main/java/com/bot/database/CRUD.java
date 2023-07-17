@@ -47,6 +47,7 @@ public class CRUD {
 
         String jsonDoc = oldDoc.toJson();
         ObjectMapper mapper = new ObjectMapper();
+
         ScheduledTaskConfig newTask = mapper.readValue(jsonDoc, ScheduledTaskConfig.class);
 
         newTask.setId(null);

@@ -40,7 +40,7 @@ public class RunMoveMemberService {
 
         guild = event.getGuild();
 
-        if ((SourceVoiceService.getSourceID() == 0) || (TargetVoiceService.getTargetID() == 0)) {
+        if ((VoiceService.getSourceID() == 0) || (VoiceService.getTargetID() == 0)) {
             textChannel.sendMessage("No source/target voice channel has set!").queue();
         } else if (MoveMemberTime.getTime() == null) {
             textChannel.sendMessage("No time has set!").queue();
@@ -59,7 +59,7 @@ public class RunMoveMemberService {
                 long period = LocalDateTime.now().until(dateTime, ChronoUnit.SECONDS);
 
                 ScheduledTaskConfig taskConfig = new ScheduledTaskConfig(inputTaskName[1],
-                        SourceVoiceService.getSourceName(), TargetVoiceService.getTargetName(), dateTimeString, true);
+                        VoiceService.getSourceName(), VoiceService.getTargetName(), dateTimeString, true);
                 taskConfig.setServerID(guild.getId());
                 taskConfig.setExceptMember(mapExceptionMember);
 

@@ -32,6 +32,8 @@ public class ScheduledTaskConfig {
         this.taskTime = taskTime;
         this.isRunning = isRunning;
     }
+
+
     public Object getId() { return id; }
 
     public void setId(Object id) { this.id = id; }

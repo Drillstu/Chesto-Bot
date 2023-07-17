@@ -3,8 +3,7 @@ package com.bot.tasks;
 import com.bot.application.ChestoBot;
 import com.bot.entities.ScheduledTaskConfig;
 import com.bot.services.RunMoveMemberService;
-import com.bot.services.SourceVoiceService;
-import com.bot.services.TargetVoiceService;
+import com.bot.services.VoiceService;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
 
@@ -36,8 +35,8 @@ public class MoveCronTask implements Runnable {
 
     public void move(Guild guild){
 
-        VoiceChannel sourceChannel = guild.getVoiceChannelById(SourceVoiceService.getSourceID());
-        VoiceChannel targetChannel = guild.getVoiceChannelById(TargetVoiceService.getTargetID());
+        VoiceChannel sourceChannel = guild.getVoiceChannelById(VoiceService.getSourceID());
+        VoiceChannel targetChannel = guild.getVoiceChannelById(VoiceService.getTargetID());
 
         int sourceChannelJoinedMembers = sourceChannel != null ? sourceChannel.getMembers().size() : 0;
 
