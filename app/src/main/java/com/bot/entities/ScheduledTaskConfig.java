@@ -22,15 +22,15 @@ public class ScheduledTaskConfig {
     @JsonProperty("exceptMembers")
     private Map<String, String> exceptMember;
     private String lastEdited;
-    public boolean isRunning = false;
+    public boolean active = false;
 
     public ScheduledTaskConfig() {}
-    public ScheduledTaskConfig(String name, String sourceName, String targetName, String taskTime, boolean isRunning) {
+    public ScheduledTaskConfig(String name, String sourceName, String targetName, String taskTime, boolean active) {
         this.name = name;
         this.sourceName = sourceName;
         this.targetName = targetName;
         this.taskTime = taskTime;
-        this.isRunning = isRunning;
+        this.active = active;
     }
 
 
@@ -83,6 +83,14 @@ public class ScheduledTaskConfig {
     }
 
     public String getLastEdited() { return lastEdited; }
+
+    public boolean getActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
     @Override
     public boolean equals(Object o) {

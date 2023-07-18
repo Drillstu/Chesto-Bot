@@ -31,6 +31,7 @@ public class RetrieveTaskService {
                 ObjectMapper mapper = new ObjectMapper();
                 ScheduledTaskConfig retrievedDoc = mapper.readValue(json, ScheduledTaskConfig.class);
 
+                textChannel.sendMessage(retrievedDoc.getName() + "task is selected!").queue();
                 textChannel.sendMessage(TaskInfo.returnInfo(retrievedDoc)).queue();
 
             } else {

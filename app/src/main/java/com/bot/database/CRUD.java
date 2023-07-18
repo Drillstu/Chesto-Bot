@@ -55,6 +55,7 @@ public class CRUD {
         newTask.setTargetName(taskConfig.getTargetName());
         newTask.setTaskTime(taskConfig.getTaskTime());
         newTask.setExceptMember(taskConfig.getExceptMember());
+        newTask.setActive(taskConfig.getActive());
 
         ObjectWriter writer = new ObjectMapper().writer().withDefaultPrettyPrinter();
         String jsonObj = writer.writeValueAsString(newTask);
