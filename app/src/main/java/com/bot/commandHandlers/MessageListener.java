@@ -33,9 +33,9 @@ public class MessageListener extends ListenerAdapter {
         else if (ReadCommand.onMessageReceived(event, Commands.CREATE_TASK.getInputCommand())) {
             new CreateTaskService().receiveCommand(event);
         }
-        else if (ReadCommand.onMessageReceived(event, Commands.RETRIEVE_TASK.getInputCommand())) {
+        else if (ReadCommand.onMessageReceived(event, Commands.SELECT_TASK.getInputCommand())) {
             try {
-                new SelectTaskService().receiveCommand(event);
+                new SelectTaskService().selectCommand(event);
             } catch (JsonProcessingException e) {
                 throw new RuntimeException(e);
             }

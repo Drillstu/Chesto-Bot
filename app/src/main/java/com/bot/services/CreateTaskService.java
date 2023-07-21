@@ -14,7 +14,6 @@ import static com.bot.services.VoiceTaskService.*;
 public class CreateTaskService {
     private static ScheduledTaskConfig createdTaskConfig;
     private static VoiceIDConfig createdVoiceConfig;
-    public static boolean created = false;
     public static ScheduledTaskConfig getCreatedTaskConfig() {
         return createdTaskConfig;
     }
@@ -33,36 +32,28 @@ public class CreateTaskService {
 
         } else {
 
-            if (selected) {
+            Document readDocument = CRUD.read(inputTaskName[1]);
 
-                textChannel.sendMessage("There's already a retrieved task selected!").queue();
+            if (readDocument != null) {
+
+                textChannel.sendMessage("Task " + inputTaskName[1] + " already exist!").queue();
 
             } else {
+                selected = false;
 
-                Document readDocument = CRUD.read(inputTaskName[1]);
+                createdVoiceConfig = new VoiceIDConfig();
+                createdVoiceConfig.setSourceID(getSourceID());
+                createdVoiceConfig.setSourceName(getSourceName());
+                createdVoiceConfig.setTargetID(getTargetID());
+                createdVoiceConfig.setTargetName(getTargetName());
 
-                if (readDocument != null) {
+                createdTaskConfig = new ScheduledTaskConfig();
+                createdTaskConfig.setServerID(event.getGuild().getId());
+                createdTaskConfig.setName(inputTaskName[1]);
+                createdTaskConfig.setVoice(createdVoiceConfig);
+                createdTaskConfig.setActive(false);
 
-                    textChannel.sendMessage("Task " + inputTaskName[1] + " already exist!").queue();
-
-                } else {
-
-                    createdVoiceConfig = new VoiceIDConfig();
-                    createdVoiceConfig.setSourceID(getSourceID());
-                    createdVoiceConfig.setSourceName(getSourceName());
-                    createdVoiceConfig.setTargetID(getTargetID());
-                    createdVoiceConfig.setTargetName(getTargetName());
-
-                    createdTaskConfig = new ScheduledTaskConfig();
-                    createdTaskConfig.setServerID(event.getGuild().getId());
-                    createdTaskConfig.setName(inputTaskName[1]);
-                    createdTaskConfig.setVoice(createdVoiceConfig);
-                    createdTaskConfig.setActive(false);
-
-                    created = true;
-
-                    textChannel.sendMessage("Task " + createdTaskConfig.getName() + " has created!").queue();
-                }
+                textChannel.sendMessage("Task " + createdTaskConfig.getName() + " has created!").queue();
             }
         }
     }

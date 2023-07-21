@@ -9,7 +9,6 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.bson.Document;
 import org.jetbrains.annotations.NotNull;
 
-import static com.bot.services.CreateTaskService.created;
 import static com.bot.utils.DocumentToObject.toObject;
 
 public class SelectTaskService {
@@ -24,7 +23,7 @@ public class SelectTaskService {
         return selectedDocument;
     }
 
-    public void receiveCommand(@NotNull MessageReceivedEvent event) throws JsonProcessingException {
+    public void selectCommand(@NotNull MessageReceivedEvent event) throws JsonProcessingException {
 
         TextChannel textChannel = event.getChannel().asTextChannel();
         String[] inputTaskName = event.getMessage().getContentRaw().split(" ", 2);
@@ -35,28 +34,20 @@ public class SelectTaskService {
 
         } else {
 
-            if (created) {
+            selectedDocument = CRUD.read(inputTaskName[1]);
 
-                textChannel.sendMessage("There's already a newly created task!").queue();
+            if (selectedDocument != null) {
+
+                selectedTaskConfig = (ScheduledTaskConfig) toObject(selectedDocument);
+
+                selected = true;
+                textChannel.sendMessage(selectedTaskConfig.getName() + " task is selected!").queue();
+                textChannel.sendMessage(TaskInfo.returnInfo(selectedTaskConfig)).queue();
 
             } else {
 
-                selectedDocument = CRUD.read(inputTaskName[1]);
+                textChannel.sendMessage(inputTaskName[1] + " doesn't match!!").queue();
 
-                if (selectedDocument != null) {
-
-                    selectedTaskConfig = (ScheduledTaskConfig) toObject(selectedDocument);
-
-                    selected = true;
-
-                    textChannel.sendMessage(selectedTaskConfig.getName() + " task is selected!").queue();
-                    textChannel.sendMessage(TaskInfo.returnInfo(selectedTaskConfig)).queue();
-
-                } else {
-
-                    textChannel.sendMessage(inputTaskName[1] + " doesn't match!!").queue();
-
-                }
             }
         }
     }

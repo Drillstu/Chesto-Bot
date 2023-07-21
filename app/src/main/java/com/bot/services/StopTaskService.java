@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.bson.Document;
 import org.jetbrains.annotations.NotNull;
 
+import static com.bot.services.SelectTaskService.selected;
 import static com.bot.tasks.MoveCronTask.stopSchedule;
 
 public class StopTaskService {
@@ -33,28 +34,33 @@ public class StopTaskService {
                 // JSON to Object
                 ScheduledTaskConfig stopTask = mapper.readValue(jsonDoc, ScheduledTaskConfig.class);
 
-                if (stopTask.getActive()) {
-                    stopSchedule(stopTask);
+                if (selected) {
+                    if (stopTask.getActive()) {
+                        stopSchedule(stopTask);
 
-                    // is cancelling the last task assigned
-                    //RunTaskService.getFutureTask().cancel(false);
-                    //RunMoveMemberTask.getExecutorRef().shutdownNow();
+                        // is cancelling the last task assigned
+                        //RunTaskService.getFutureTask().cancel(false);
+                        //RunMoveMemberTask.getExecutorRef().shutdownNow();
 
-                    // TODO: try create task map to manipulate run/cancel specific task
-                    //Future<?> f = ScheduledExecutorService
+                        // TODO: try create task map to manipulate run/cancel specific task
+                        //Future<?> f = ScheduledExecutorService
                     /*
                     ScheduledFuture<?> f = tasks.get(stopTask.getName());
                     f.cancel(false);
                     */
-                    stopTask.setActive(false);
-                    CRUD.update(stopTask, readDocument);
+                        stopTask.setActive(false);
+                        CRUD.update(stopTask, readDocument);
 
-                    // test purposes
-                    System.out.println("stopping task " + stopTask.getName());
+                        // test purposes
+                        System.out.println("stopping task " + stopTask.getName());
 
-                    textChannel.sendMessage("Task " + stopTask.getName() + " stopped!").queue();
+                        textChannel.sendMessage("Task " + stopTask.getName() + " stopped!").queue();
+                        selected = false;
+                    } else {
+                        textChannel.sendMessage("Task " + stopTask.getName() + " is already stopped!").queue();
+                    }
                 } else {
-                    textChannel.sendMessage("Task " + stopTask.getName() + " is already stopped!").queue();
+                    textChannel.sendMessage("Must select a task first!").queue();
                 }
             } else {
                 textChannel.sendMessage("No such task name currently exist!").queue();

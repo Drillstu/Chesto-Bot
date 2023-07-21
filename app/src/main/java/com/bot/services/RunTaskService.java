@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledFuture;
 
+import static com.bot.services.SelectTaskService.selected;
 import static com.bot.tasks.MoveCronTask.startSchedule;
 import static com.bot.utils.DocumentToObject.toObject;
 
@@ -53,9 +54,9 @@ public class RunTaskService {
                 LocalDateTime dateTime = runTime.atDate(LocalDate.now());
                 long period = LocalDateTime.now().until(dateTime, ChronoUnit.SECONDS);
                 */
-
-                if (!runTask.getActive()) {
-                    startSchedule(runTask);
+                if (selected) {
+                    if (!runTask.getActive()) {
+                        startSchedule(runTask);
                     /*
                     ExecutorService executorService = Executors.newSingleThreadExecutor();
                     Callable<MoveCronTask> moveCronTaskCallable = () -> {
@@ -78,11 +79,15 @@ public class RunTaskService {
 
                     //futureTask = executor.scheduleAtFixedRate(new MoveCronTask(runTask), period, dayInSeconds, TimeUnit.SECONDS);
                     */
-                    runTask.setActive(true);
-                    CRUD.update(runTask, readDocument);
-                    textChannel.sendMessage("Task " + runTask.getName() + " active!").queue();
+                        runTask.setActive(true);
+                        CRUD.update(runTask, readDocument);
+                        textChannel.sendMessage("Task " + runTask.getName() + " active!").queue();
+                        selected = false;
+                    } else {
+                        textChannel.sendMessage("Task " + runTask.getName() + " is already active!").queue();
+                    }
                 } else {
-                    textChannel.sendMessage("Task " + runTask.getName() + " is already active!").queue();
+                    textChannel.sendMessage("Must select a task first!").queue();
                 }
             } else {
                 textChannel.sendMessage("No such task name currently exist!").queue();
