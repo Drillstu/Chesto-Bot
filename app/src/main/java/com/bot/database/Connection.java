@@ -25,6 +25,7 @@ public class Connection {
             for (String collection : database.listCollectionNames()) {
                 collectionNames.add(collection);
             }
+
             if (!collectionNames.isEmpty()) {
                 if (!collectionNames.contains("scheduledTasks")) {
                     Connection.database.createCollection("scheduledTasks");

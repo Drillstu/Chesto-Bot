@@ -14,10 +14,13 @@ public class ScheduledTaskConfig {
     @JsonProperty("taskName")
     private String name;
     private String serverID;
+    /*
     @JsonProperty("source")
     private String sourceName;
     @JsonProperty("target")
     private String targetName;
+    */
+    private VoiceIDConfig voice;
     private String taskTime;
     @JsonProperty("exceptMembers")
     private Map<String, String> exceptMember;
@@ -25,14 +28,6 @@ public class ScheduledTaskConfig {
     public boolean active = false;
 
     public ScheduledTaskConfig() {}
-    public ScheduledTaskConfig(String name, String sourceName, String targetName, String taskTime, boolean active) {
-        this.name = name;
-        this.sourceName = sourceName;
-        this.targetName = targetName;
-        this.taskTime = taskTime;
-        this.active = active;
-    }
-
 
     public Object getId() { return id; }
 
@@ -50,20 +45,12 @@ public class ScheduledTaskConfig {
         this.serverID = serverID;
     }
 
-    public String getSourceName() {
-        return sourceName;
+    public VoiceIDConfig getVoice() {
+        return voice;
     }
 
-    public void setSourceName(String sourceName) {
-        this.sourceName = sourceName;
-    }
-
-    public String getTargetName() {
-        return targetName;
-    }
-
-    public void setTargetName(String targetName) {
-        this.targetName = targetName;
+    public void setVoice(VoiceIDConfig voice) {
+        this.voice = voice;
     }
 
     public String getTaskTime() {
@@ -83,6 +70,10 @@ public class ScheduledTaskConfig {
     }
 
     public String getLastEdited() { return lastEdited; }
+
+    public void setLastEdited(String lastEdited) {
+        this.lastEdited = lastEdited;
+    }
 
     public boolean getActive() {
         return active;

@@ -6,13 +6,14 @@ public class TaskInfo {
 
     public static String returnInfo(ScheduledTaskConfig task){
 
-        String exceptions = (!task.getExceptMember().isEmpty()) ?
-                task.getExceptMember().values().toString() : "There are no exceptions registered";
+            String exceptions = (task.getExceptMember() == null || !task.getExceptMember().isEmpty()) ?
+                    "There are no exceptions registered" : task.getExceptMember().values().toString();
 
         return "```\n" +
                 "Task Name: " + task.getName() + "\n" +
-                "Source Channel: " + task.getSourceName() + "\n" +
-                "Target Channel: " + task.getTargetName() + "\n" +
+                "Active?: " + (task.getActive() ? "YES" : "NO") + "\n" +
+                "Source Channel: " + task.getVoice().getSourceName() + "\n" +
+                "Target Channel: " + task.getVoice().getTargetName() + "\n" +
                 "Time Set: " + task.getTaskTime() + "\n" +
                 "Exceptions: " + exceptions + "\n" +
                 "Last Edited: " + task.getLastEdited() + "\n" +

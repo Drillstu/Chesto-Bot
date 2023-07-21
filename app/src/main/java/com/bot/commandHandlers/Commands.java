@@ -14,9 +14,11 @@ public enum Commands {
     SET_TIME("setTime", "define time at which task will play"),
     ADD_EXCEPTION("addException", "add user to exception list"),
     REMOVE_EXCEPTION("removeException", "remove user from exception list"),
-    RUN_TASK("run", "schedule task"),
+    CREATE_TASK("create", "create new task"),
     RETRIEVE_TASK("retrieve", "retrieve task info"),
-    CANCEL_TASK("cancel", "cancel scheduled task"),
+    SAVE_TASK("save", "save task"),
+    RUN_TASK("run", "schedule task"),
+    STOP_TASK("stop", "cancel scheduled task"),
     DELETE_TASK("delete", "delete task"),
     PING("ping", "measure connection with the bot");
 
@@ -37,9 +39,11 @@ public enum Commands {
                 prefix + Commands.SET_TIME.getInputCommand() + ": " + Commands.SET_TIME.getDescription() + "\n" +
                 prefix + Commands.ADD_EXCEPTION.getInputCommand() + ": " + Commands.ADD_EXCEPTION.getDescription() + "\n" +
                 prefix + Commands.REMOVE_EXCEPTION.getInputCommand() + ": " + Commands.REMOVE_EXCEPTION.getDescription() + "\n" +
-                prefix + Commands.RUN_TASK.getInputCommand() + ": " + Commands.RUN_TASK.getDescription() + "\n" +
+                prefix + Commands.CREATE_TASK.getInputCommand() + ": " + Commands.CREATE_TASK.getDescription() + "\n" +
                 prefix + Commands.RETRIEVE_TASK.getInputCommand() + ": " + Commands.RETRIEVE_TASK.getDescription() + "\n" +
-                prefix + Commands.CANCEL_TASK.getInputCommand() + ": " + Commands.CANCEL_TASK.getDescription() + "\n" +
+                prefix + Commands.SAVE_TASK.getInputCommand() + ": " + Commands.SAVE_TASK.getDescription() + "\n" +
+                prefix + Commands.RUN_TASK.getInputCommand() + ": " + Commands.RUN_TASK.getDescription() + "\n" +
+                prefix + Commands.STOP_TASK.getInputCommand() + ": " + Commands.STOP_TASK.getDescription() + "\n" +
                 prefix + Commands.DELETE_TASK.getInputCommand() + ": " + Commands.DELETE_TASK.getDescription() + "\n" +
                 prefix + Commands.PING.getInputCommand() + ": " + Commands.PING.getDescription() + "\n" +
                 "```";
