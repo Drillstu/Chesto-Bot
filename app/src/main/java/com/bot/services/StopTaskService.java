@@ -2,19 +2,23 @@ package com.bot.services;
 
 import com.bot.database.CRUD;
 import com.bot.entities.ScheduledTaskConfig;
+import com.bot.entities.TaskJobConfig;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.bson.Document;
 import org.jetbrains.annotations.NotNull;
+import org.quartz.JobKey;
+import org.quartz.SchedulerException;
 
+import static com.bot.application.ChestoBot.scheduler;
+import static com.bot.services.SelectTaskService.getSelectedTaskConfig;
 import static com.bot.services.SelectTaskService.selected;
-import static com.bot.tasks.MoveCronTask.stopSchedule;
 
 public class StopTaskService {
 
-    public void receiveCommand(@NotNull MessageReceivedEvent event) throws JsonProcessingException {
+    public void receiveCommand(@NotNull MessageReceivedEvent event) throws JsonProcessingException, SchedulerException {
 
         TextChannel textChannel = event.getChannel().asTextChannel();
 
@@ -25,40 +29,25 @@ public class StopTaskService {
 
         } else {
 
-            Document readDocument = CRUD.read(inputTaskName[1]);
+            Document readDocument = CRUD.read(inputTaskName[1],"jobs");
             if (readDocument != null) {
 
-                // Document to JSON
-                String jsonDoc = readDocument.toJson();
-                ObjectMapper mapper = new ObjectMapper();
-                // JSON to Object
-                ScheduledTaskConfig stopTask = mapper.readValue(jsonDoc, ScheduledTaskConfig.class);
+                // ScheduledTaskConfig stopTask = (ScheduledTaskConfig) toObject(readDocument);
 
                 if (selected) {
-                    if (stopTask.getActive()) {
-                        stopSchedule(stopTask);
 
-                        // is cancelling the last task assigned
-                        //RunTaskService.getFutureTask().cancel(false);
-                        //RunMoveMemberTask.getExecutorRef().shutdownNow();
+                    ScheduledTaskConfig stopTask = getSelectedTaskConfig();
+                    //if (stopTask.getActive()) {
+                    stopSchedule(stopTask, readDocument);
 
-                        // TODO: try create task map to manipulate run/cancel specific task
-                        //Future<?> f = ScheduledExecutorService
-                    /*
-                    ScheduledFuture<?> f = tasks.get(stopTask.getName());
-                    f.cancel(false);
-                    */
-                        stopTask.setActive(false);
-                        CRUD.update(stopTask, readDocument);
+                    stopTask.setActive(false);
+                    CRUD.update(stopTask, readDocument);
 
-                        // test purposes
-                        System.out.println("stopping task " + stopTask.getName());
-
-                        textChannel.sendMessage("Task " + stopTask.getName() + " stopped!").queue();
-                        selected = false;
-                    } else {
-                        textChannel.sendMessage("Task " + stopTask.getName() + " is already stopped!").queue();
-                    }
+                    textChannel.sendMessage("Task " + stopTask.getName() + " stopped!").queue();
+                    selected = false;
+                    //} else {
+                    //    textChannel.sendMessage("Task " + stopTask.getName() + " is already stopped!").queue();
+                    //}
                 } else {
                     textChannel.sendMessage("Must select a task first!").queue();
                 }
@@ -66,5 +55,39 @@ public class StopTaskService {
                 textChannel.sendMessage("No such task name currently exist!").queue();
             }
         }
+    }
+
+    public static void stopSchedule(ScheduledTaskConfig stopTask, Document stopDoc) throws SchedulerException, JsonProcessingException {
+
+        //Scheduler stopScheduler = jobs.get(stopTask.getName());
+        //stopScheduler.shutdown();
+        //stopScheduler.interrupt()
+
+        //JobKey stopJobKey = jobs.get(stopTask.getName());
+        //scheduler.deleteJob(stopJobKey);
+
+
+        // *Test purposes*
+        /*
+        SimpleModule module = new SimpleModule();
+        module.addDeserializer(JobKey.class, new JobKeyDeserializer());
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(module);
+
+         */
+
+        String jsonDoc = stopDoc.toJson();
+        ObjectMapper mapper = new ObjectMapper();
+        TaskJobConfig key = mapper.readValue(jsonDoc, TaskJobConfig.class);
+        //JobKey key = toJobKey(stopDoc);
+        JobKey stopKey = new JobKey(key.getTaskName(), key.getJobKey().toString());
+        scheduler.deleteJob(stopKey);
+        // *Test purposes*
+
+
+        //scheduler.pauseJob(stopJobKey);
+        //scheduler.interrupt(stopJobKey);
+
+
     }
 }

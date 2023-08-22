@@ -26,11 +26,15 @@ public class Connection {
                 collectionNames.add(collection);
             }
 
-            if (!collectionNames.isEmpty()) {
-                if (!collectionNames.contains("scheduledTasks")) {
-                    Connection.database.createCollection("scheduledTasks");
-                }
+            if (!collectionNames.contains("scheduledTasks")) {
+                database.createCollection("scheduledTasks");
             }
+
+            if (!collectionNames.contains("jobs")) {
+                database.createCollection("jobs");
+            }
+
+
 
         } catch (MongoException e) {
             e.printStackTrace();

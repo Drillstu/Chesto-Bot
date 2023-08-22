@@ -15,6 +15,9 @@ plugins {
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
+    maven {
+        url "https://jcenter.bintray.com/"
+    }
 }
 
 dependencies {
@@ -44,6 +47,17 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
     implementation 'com.fasterxml.jackson.core:jackson-core:2.15.2'
+
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310
+    implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.15.2'
+
+    // https://mvnrepository.com/artifact/org.quartz-scheduler/quartz
+    implementation group: 'org.quartz-scheduler', name: 'quartz', version: '2.5.0-rc1'
+
+    // https://mvnrepository.com/artifact/org.quartz-scheduler/quartz-jobs
+    implementation group: 'org.quartz-scheduler', name: 'quartz-jobs', version: '2.5.0-rc1'
+
+    implementation "com.novemberain:quartz-mongodb:2.2.0-rc2"
 
 }
 

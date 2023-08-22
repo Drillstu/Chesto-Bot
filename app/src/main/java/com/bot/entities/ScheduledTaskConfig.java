@@ -3,6 +3,7 @@ package com.bot.entities;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.time.LocalTime;
 import java.util.Map;
 import java.util.Objects;
 
@@ -14,18 +15,12 @@ public class ScheduledTaskConfig {
     @JsonProperty("taskName")
     private String name;
     private String serverID;
-    /*
-    @JsonProperty("source")
-    private String sourceName;
-    @JsonProperty("target")
-    private String targetName;
-    */
     private VoiceIDConfig voice;
-    private String taskTime;
+    private LocalTime taskTime;
     @JsonProperty("exceptMembers")
     private Map<String, String> exceptMember;
     private String lastEdited;
-    public boolean active = false;
+    private boolean active = false;
 
     public ScheduledTaskConfig() {}
 
@@ -53,11 +48,11 @@ public class ScheduledTaskConfig {
         this.voice = voice;
     }
 
-    public String getTaskTime() {
+    public LocalTime getTaskTime() {
         return taskTime;
     }
 
-    public void setTaskTime(String taskTime) {
+    public void setTaskTime(LocalTime taskTime) {
         this.taskTime = taskTime;
     }
 

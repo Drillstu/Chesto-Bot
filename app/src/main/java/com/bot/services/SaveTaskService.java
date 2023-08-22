@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.jetbrains.annotations.NotNull;
 
+import java.time.LocalTime;
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -23,6 +24,7 @@ public class SaveTaskService {
 
             if (!checkTaskProps()) {
                 CRUD.create(getCreatedTaskConfig());
+                getCreatedTaskConfig().setLastEdited("now");
                 textChannel.sendMessage("Task " + getCreatedTaskConfig().getName() + " has created!").queue();
                 textChannel.sendMessage(TaskInfo.returnInfo(getCreatedTaskConfig())).queue();
                 selected = true;
@@ -33,6 +35,7 @@ public class SaveTaskService {
         } else if (getSelectedTaskConfig() != null) {
             CRUD.update(getSelectedTaskConfig(), getSelectedDocument());
             textChannel.sendMessage("Task " + getSelectedTaskConfig().getName() + " has updated!").queue();
+            textChannel.sendMessage(TaskInfo.returnInfo(getSelectedTaskConfig())).queue();
         } else {
             textChannel.sendMessage("Must use 'Create' or 'Retrieve' command first!").queue();
         }
@@ -41,7 +44,8 @@ public class SaveTaskService {
     public boolean checkTaskProps() {
         String sourceProp = getCreatedTaskConfig().getVoice().getSourceName();
         String targetProp = getCreatedTaskConfig().getVoice().getTargetName();
-        String timeProp = getCreatedTaskConfig().getTaskTime();
+        //String timeProp = getCreatedTaskConfig().getTaskTime();
+        LocalTime timeProp = getCreatedTaskConfig().getTaskTime();
         return Stream.of(sourceProp, targetProp, timeProp).anyMatch(Objects::isNull);
     }
 }

@@ -1,6 +1,8 @@
 package com.bot.utils;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Files {
 
@@ -37,6 +39,5 @@ public class Files {
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
         }
-
     }
 }

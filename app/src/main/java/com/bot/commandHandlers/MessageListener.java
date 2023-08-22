@@ -6,6 +6,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
+import org.quartz.SchedulerException;
+
+import java.io.IOException;
 
 public class MessageListener extends ListenerAdapter {
 
@@ -50,17 +53,18 @@ public class MessageListener extends ListenerAdapter {
         else if (ReadCommand.onMessageReceived(event, Commands.RUN_TASK.getInputCommand())) {
             try {
                 new RunTaskService().receiveCommand(event);
-            } catch (JsonProcessingException e) {
+            } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
         else if (ReadCommand.onMessageReceived(event, Commands.STOP_TASK.getInputCommand())) {
             try {
                 new StopTaskService().receiveCommand(event);
-            } catch (JsonProcessingException e) {
+            } catch (JsonProcessingException | SchedulerException e) {
                 throw new RuntimeException(e);
             }
         }
+
         else if (ReadCommand.onMessageReceived(event, Commands.DELETE_TASK.getInputCommand())) {
             new DeleteTaskService().receiveCommand(event);
         }

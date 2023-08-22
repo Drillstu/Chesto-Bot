@@ -39,6 +39,7 @@ public class SelectTaskService {
             if (selectedDocument != null) {
 
                 selectedTaskConfig = (ScheduledTaskConfig) toObject(selectedDocument);
+                //tasks.put(selectedTaskConfig.getName(), )
 
                 selected = true;
                 textChannel.sendMessage(selectedTaskConfig.getName() + " task is selected!").queue();

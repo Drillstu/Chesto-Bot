@@ -5,7 +5,6 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
 import static com.bot.services.CreateTaskService.getCreatedTaskConfig;
 import static com.bot.services.SelectTaskService.getSelectedTaskConfig;
@@ -39,15 +38,11 @@ public class TimeTaskService {
                 int minute = Integer.parseInt(timeString[1]);
                 setTime(hour, minute);
 
-                //LocalDateTime dateTime = time.atDate(LocalDate.now());
-                String dateTimeString = time.format(DateTimeFormatter.ofPattern("HH:mm"));
-
                 if (getCreatedTaskConfig() != null) {
-                    getCreatedTaskConfig().setTaskTime(dateTimeString);
+                    getCreatedTaskConfig().setTaskTime(time);
                 } else {
-                    getSelectedTaskConfig().setTaskTime(dateTimeString);
+                    getSelectedTaskConfig().setTaskTime(time);
                 }
-
                 textChannel.sendMessage("Time set!").queue();
             }
 

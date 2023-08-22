@@ -7,7 +7,10 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import org.quartz.JobKey;
+import org.quartz.Scheduler;
 
+import java.io.IOException;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Locale;
@@ -19,8 +22,10 @@ public class ChestoBot {
     public static final Locale localeBr = new Locale("pt", "BR");
     public static JDA jda;
     public static final Map<Long, Character> prefixMap = new HashMap<>();
-    public static Map<String, ScheduledFuture<?>> tasks = new HashMap<>();
-    public static void main(String[] args) throws InterruptedException {
+    public static HashMap<String, ScheduledFuture<?>> tasks = new HashMap<>();
+    public static HashMap<String, JobKey> jobs = new HashMap<>();
+    public static Scheduler scheduler;
+    public static void main(String[] args) throws InterruptedException, IOException {
 
         Files.readToken();
 
@@ -33,13 +38,6 @@ public class ChestoBot {
 
         for (Guild guild : jda.awaitReady().getGuilds()) {
             prefixMap.put(guild.getIdLong(), '!');
-
         }
-/*
-        for (Map.Entry<String, ScheduledFuture<?>> entry : tasks.entrySet()) {
-            tasks.put
-        }
-
- */
     }
 }

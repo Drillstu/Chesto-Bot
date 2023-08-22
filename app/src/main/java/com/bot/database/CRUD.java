@@ -10,11 +10,12 @@ import org.bson.types.ObjectId;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import static com.bot.database.Connection.database;
 import static com.bot.utils.DocumentToObject.toObject;
 import static com.bot.utils.ObjectToDocument.toDocument;
 
 public class CRUD {
-    static MongoCollection<Document> collection = Connection.database.getCollection("scheduledTasks");
+    static MongoCollection<Document> collection = database.getCollection("scheduledTasks");
 
     public static void create(ScheduledTaskConfig taskConfig) throws JsonProcessingException {
 
@@ -30,19 +31,18 @@ public class CRUD {
 
     }
 
-    /*
-    public static Document read(ScheduledTaskConfig taskConfig){
-
-        return collection.find(new Document("taskName", taskConfig.getName())).first();
-
-    }
-     */
-
     public static Document read(String taskName){
 
         return collection.find(new Document("taskName", taskName)).first();
 
     }
+
+    public static Document read(String taskName, String collection){
+
+        return database.getCollection(collection).find(new Document("taskName", taskName)).first();
+
+    }
+
     public static void update(ScheduledTaskConfig taskConfig, Document oldDoc) throws JsonProcessingException {
 
         ScheduledTaskConfig newTask = (ScheduledTaskConfig) toObject(oldDoc);
